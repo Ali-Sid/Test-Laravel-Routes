@@ -43,30 +43,27 @@ Route::redirect('/log-in', '/login');
 // Assign middleware "auth"
 // Put one Route Group code line here below
 Route::group(['middleware' => 'auth'], function () {
+ // Tasks inside that Authenticated group:
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 });
 
 //or
 Route::middleware('auth')->group(function() {
+ // Tasks inside that Authenticated group:
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 })
-
-
-
-
-    // Tasks inside that Authenticated group:
 
     // Task 6: /app group within a group
     // Add another group for routes with prefix "app"
     // Put one Route Group code line here below
 
-        // Tasks inside that /app group:
 
     Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::group(['prefix' => 'app'], function () {
+         // Tasks inside that /app group:
             Route::get('/', [AppController::class, 'index'])->name('app.index');
             Route::get('/create', [AppController::class, 'create'])->name('app.create');
         });
